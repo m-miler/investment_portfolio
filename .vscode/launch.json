@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run Django",
+        "type": "debugpy",
+        "request": "attach",
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}/investment_portfolios",
+            "remoteRoot": "/src"
+          }
+        ],
+        "port": 3000,
+        "host": "127.0.0.1",
+      }
+    ]
+  }

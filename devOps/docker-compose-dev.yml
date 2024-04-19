@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  investment-portfolios-api:
+    image: investment_portfolios_api
+    build:
+      context: ../
+      dockerfile: ./devOps/dev.Dockerfile
+
+    container_name: investment_portfolios_api
+    ports:
+      - "7000:7000"
+      - "3000:3000"
+    networks:
+      - app-internal-net
+    depends_on:
+      - portfolio_db
+    expose:
+      - 3000:3000
+
+  portfolio_db:
+    image: postgres
+    restart: always
+    container_name: portfolios_db
+    env_file:
+      - db.dev.env
+    volumes:
+      -  pgdata-portfolios:/var/lib/postgresql/data
+    networks:
+      - app-internal-net
+
+networks:
+  app-internal-net:
+    external: true
+
+volumes:
+  pgdata-portfolios:

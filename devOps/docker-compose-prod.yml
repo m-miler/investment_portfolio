@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: ../
+      dockerfile: ./devOps/dev.Dockerfile
+
+    container_name: stock_api
+    ports:
+      - "8080:8080"
+    networks:
+      - local-network
+    depends_on:
+      - portfolio_db
+
+  portfolio_db:
+    image: postgres
+    restart: always
+    container_name: portfolios_db
+    env_file:
+      - db.prod.env
+    networks:
+      - local-network
+
+networks:
+  local-network:
